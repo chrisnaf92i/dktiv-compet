@@ -20,8 +20,10 @@ model User {
   email            String     @unique
   phone            String     @unique
   password         String
-  directedCompagny Company[]
+  directedCompagny Company[]  @relation("DirectorFromCompany")
   directedEvents   Event[]
+  employeOfId      String?
+  employeOf      Company? @relation("Employee", fields: [employeOfId], references: [id])
   role             Role
 }
 
@@ -36,8 +38,11 @@ model Event {
 model Company {
   id          String  @id @default(uuid())
   name        String
-  directorId String
-  director    User    @relation(fields: [directorId], references: [id])
+  directorId String?
+  logoUrl String
+  description  String
+  director    User?    @relation("DirectorFromCompany", fields: [directorId], references: [id])
+  employee    User[]  @relation("Employee")
   events      Event[]
 }
 
