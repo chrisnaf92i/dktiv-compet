@@ -14,13 +14,31 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(uuid())
-  lastname  String
-  firstname String
-  email     String @unique
-  phone     String @unique
-  password  String
-  role      Role
+  id               String     @id @default(uuid())
+  lastname         String
+  firstname        String
+  email            String     @unique
+  phone            String     @unique
+  password         String
+  directedCompagny Company[]
+  directedEvents   Event[]
+  role             Role
+}
+
+model Event {
+  id           String     @id @default(uuid())
+  name         String
+  maxUser      String
+  compagniesId Company[]
+  referent     User[]
+}
+
+model Company {
+  id          String  @id @default(uuid())
+  name        String
+  directorId String
+  director    User    @relation(fields: [directorId], references: [id])
+  events      Event[]
 }
 
 enum Role {
