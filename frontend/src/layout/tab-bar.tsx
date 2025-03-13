@@ -15,7 +15,7 @@ export default function TabBar() {
                 const Icon = tab.icon;
                 return (
                     <TabButton
-                        selected={tab.page == pathname}
+                        $selected={tab.page == pathname}
                         onClick={() => {
                             router.push(tab.page);
                         }}
@@ -49,10 +49,10 @@ const TabBarContainer = styled.nav`
     justify-content: space-evenly;
 `;
 
-const TabButton = styled.button<{ selected: boolean }>`
+const TabButton = styled.button<{ $selected: boolean }>`
     padding: 12px;
     border-radius: 100%;
-    background-color: ${({ selected }) =>
+    background-color: ${({ $selected: selected }) =>
         selected ? colors.primary.yellow : 'transparent'};
     border: none;
     outline: none;

@@ -1,58 +1,205 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './button';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
+import { BodyText, H1 } from './text';
+import colors from '@/utils/colors';
+import { useSwipeable } from 'react-swipeable';
+type OnBoardingProps = {
+    setPhoto: (photo: string) => void;
+};
 
-export default function OnBoarding() {
+export default function OnBoarding({ setPhoto }: OnBoardingProps) {
+    const [onBoardingStep, setOnBoardingStep] = useState<
+        'intro' | 'Step 1' | 'Step 2' | 'Step 3'
+    >('intro');
     const router = useRouter();
-    const navigateToLogin = () => {
-        router.push('/auth/login');
+    const onChangeStep = () => {
+        if (onBoardingStep === 'intro') {
+            setOnBoardingStep('Step 1');
+            setPhoto('/images/onboarding/onboarding-1.webp');
+        } else if (onBoardingStep === 'Step 1') {
+            setOnBoardingStep('Step 2');
+            setPhoto('/images/onboarding/onboarding-2.webp');
+        } else if (onBoardingStep === 'Step 2') {
+            setOnBoardingStep('Step 3');
+            setPhoto('/images/onboarding/onboarding-3.webp');
+        } else {
+            router.push('/auth/login');
+        }
     };
-    return (
-        <OnBoardingContainer>
-            <Logo src="/logo.svg" alt="Logo" />
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                ullam cum saepe delectus voluptate placeat temporibus sed.
-            </p>
-            <Button
-                onClick={navigateToLogin}
-                style={{ margin: '4px', width: '75%' }}
-                cta={true}
-            >
-                Se connecter - client
-            </Button>
-            <Button cta={false} style={{ margin: '4px', width: '75%' }}>
-                Se connecter - presta
-            </Button>
 
-            <EmptyButton>Continuer sans se connecter</EmptyButton>
-        </OnBoardingContainer>
+    const swipeHandler = useSwipeable({
+        onSwipedLeft: () => {
+            if (onBoardingStep === 'Step 1') {
+                setOnBoardingStep('Step 2');
+                setPhoto('/images/onboarding/onboarding-2.webp');
+            } else if (onBoardingStep === 'Step 2') {
+                setOnBoardingStep('Step 3');
+                setPhoto('/images/onboarding/onboarding-3.webp');
+            }
+        },
+        onSwipedRight: () => {
+            if (onBoardingStep === 'Step 1') {
+                setOnBoardingStep('intro');
+                setPhoto('');
+            } else if (onBoardingStep === 'Step 2') {
+                setOnBoardingStep('Step 1');
+                setPhoto('/images/onboarding/onboarding-1.webp');
+            } else if (onBoardingStep === 'Step 3') {
+                setOnBoardingStep('Step 2');
+                setPhoto('/images/onboarding/onboarding-2.webp');
+            }
+        },
+        trackMouse: true,
+        preventScrollOnSwipe: true,
+    });
+    return (
+        {
+            intro: (
+                <OnBoardingContainer>
+                    <H1 style={{ color: colors.base.white, margin: '6px 0' }}>
+                        Bienvenue sur DKTIV !
+                    </H1>
+                    <BodyText
+                        style={{ color: colors.base.white, margin: '6px 0' }}
+                        $type="Regular16"
+                    >
+                        Transformez chaque pas en une action solidaire et
+                        redonnez vie à votre quartier.
+                    </BodyText>
+
+                    <Button
+                        type="primary"
+                        style={{ margin: '8px 0' }}
+                        onClick={onChangeStep}
+                    >
+                        Commencer
+                    </Button>
+
+                    <SeparatorContainer>
+                        <SeparatorLine />
+                        <SeparatorWord $type="Medium16">Ou</SeparatorWord>
+                        <SeparatorLine />
+                    </SeparatorContainer>
+
+                    <Button type="secondary" style={{ margin: '8px 0' }}>
+                        Devenir prestataire
+                    </Button>
+                </OnBoardingContainer>
+            ),
+            'Step 1': (
+                <OnBoardingContainer {...swipeHandler}>
+                    <H1 style={{ color: colors.base.white, margin: '6px' }}>
+                        Chaque pas compte
+                    </H1>
+                    <BodyText
+                        $type="Regular16"
+                        style={{ color: colors.base.white, margin: '6px' }}
+                    >
+                        Avec D-KTIV, transformez vos déplacements en actions
+                        solidaires.
+                    </BodyText>
+
+                    <OnBoardingStepsContainer>
+                        <OnBoardingSteps $active />
+                        <OnBoardingSteps />
+                        <OnBoardingSteps />
+                    </OnBoardingStepsContainer>
+                </OnBoardingContainer>
+            ),
+            'Step 2': (
+                <OnBoardingContainer {...swipeHandler}>
+                    <H1 style={{ color: colors.base.white, margin: '6px' }}>
+                        Agissez pour le collectif
+                    </H1>
+                    <BodyText
+                        $type="Regular16"
+                        style={{ color: colors.base.white, margin: '6px' }}
+                    >
+                        Créez des liens et soutenez des initiatives locales qui
+                        font la différence.
+                    </BodyText>
+                    <OnBoardingStepsContainer>
+                        <OnBoardingSteps />
+                        <OnBoardingSteps $active />
+                        <OnBoardingSteps />
+                    </OnBoardingStepsContainer>
+                </OnBoardingContainer>
+            ),
+            'Step 3': (
+                <OnBoardingContainer {...swipeHandler}>
+                    <H1 style={{ color: colors.base.white, margin: '6px 0' }}>
+                        Rejoignez le mouvement
+                    </H1>
+                    <BodyText
+                        $type="Regular16"
+                        style={{ color: colors.base.white, margin: '6px 0' }}
+                    >
+                        Commencez à marcher et faites partie d&apos;un mouvement
+                        engagé, pas à pas !
+                    </BodyText>
+                    <OnBoardingFooter>
+                        <OnBoardingStepsContainer>
+                            <OnBoardingSteps />
+                            <OnBoardingSteps />
+                            <OnBoardingSteps $active />
+                        </OnBoardingStepsContainer>
+                        <Button
+                            style={{ width: '50%' }}
+                            type="primary"
+                            onClick={onChangeStep}
+                        >
+                            Terminer
+                        </Button>
+                    </OnBoardingFooter>
+                </OnBoardingContainer>
+            ),
+        }[onBoardingStep] || null
     );
 }
 
-const Logo = styled.img`
-    width: 60%;
+const SeparatorContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+`;
+const SeparatorLine = styled.div`
+    flex: 1;
+    border: 1px solid ${colors.base.white};
+`;
+
+const SeparatorWord = styled(BodyText)`
+    color: ${colors.base.white};
+    margin: 0;
 `;
 
 const OnBoardingContainer = styled.section`
-    box-shadow: 0 4px 6px black;
-    width: 80%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-
     padding: 16px;
-
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
 `;
 
-const EmptyButton = styled.button`
-    border: none;
-    outline: none;
+const OnBoardingStepsContainer = styled.div`
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+`;
+
+const OnBoardingSteps = styled.div<{ $active?: boolean }>`
+    width: 40px;
+    height: 0;
+    border: 3px solid
+        ${({ $active: active }) =>
+            active ? colors.primary.yellow : colors.base.white};
+`;
+const OnBoardingFooter = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
 `;
