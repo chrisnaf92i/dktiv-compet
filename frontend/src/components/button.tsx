@@ -88,15 +88,10 @@ export function InstallButton() {
     return (
         <>
             {showButton && (
-                <InstallButtonStyle onClick={handleInstallClick}>
-                    <DownloadIcon size="24" />
-                </InstallButtonStyle>
+                <button onClick={handleInstallClick}>
+                    <DownloadIcon />
+                </button>
             )}
         </>
     );
 }
-const InstallButtonStyle = styled.button`
-    border: none;
-    background-color: transparent;
-    padding: 8px;
-`;
