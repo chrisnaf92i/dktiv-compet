@@ -6,16 +6,36 @@ import { DownloadIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export const Button = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'cta',
-})<{ cta: boolean }>`
-    background-color: ${({ cta }) =>
-        cta ? colors.primary.blue : 'transparent'};
-    padding: 8px 16px;
-    border: ${({ cta }) => (cta ? 'none' : `3px solid ${colors.primary.blue}`)};
+// export const Button = styled.button.withConfig({
+//     shouldForwardProp: (prop) => prop !== 'cta',
+// })<{ cta: boolean }>`
+//     background-color: ${({ cta }) =>
+//         cta ? colors.primary.blue : 'transparent'};
+//     padding: 8px 16px;
+//     border: ${({ cta }) => (cta ? 'none' : `3px solid ${colors.primary.blue}`)};
+//     border-radius: 8px;
+//     color: ${({ cta }) => (cta ? 'white' : colors.primary.blue)};
+//     font-weight: bold;
+// `;
+
+export const Button = styled.button<{
+    type: 'primary' | 'secondary' | 'terciary';
+}>`
+    width: 100%;
+    padding: 12px;
     border-radius: 8px;
-    color: ${({ cta }) => (cta ? 'white' : colors.primary.blue)};
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    letter-spacing: auto;
+    background-color: ${({ type }) =>
+        type === 'primary' ? colors.primary.blue : 'transparent'};
+    color: ${({ type }) =>
+        type === 'primary' || type === 'secondary'
+            ? colors.base.white
+            : colors.primary.blue};
+    border: ${({ type }) =>
+        type === 'secondary' ? `2px solid ${colors.base.white}` : 'none'};
 `;
 
 export function InstallButton() {

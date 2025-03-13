@@ -1,8 +1,14 @@
 import PWAInstaller from '@/components/PWAInstaller';
+<<<<<<< HEAD
 import TabBar from '../layout/tab-bar';
 import GlobalStyles from '@/global-styles';
 import { Metadata, Viewport } from 'next';
 import Header from '../layout/header';
+=======
+// import TabBar from '../../layout/tab-bar';
+import GlobalStyles from '@/global-styles';
+import { Metadata, Viewport } from 'next';
+>>>>>>> ddd3352 (create onboarding)
 // import Header from '../../layout/header';
 
 export const metadata: Metadata = {
@@ -30,11 +36,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <GlobalStyles />
-            <body>
-                <Header />
-                <PWAInstaller />
+            <body style={{ margin: 0, padding: 0 }}>
                 {children}
-                <TabBar />
+                {/* <TabBar /> */}
             </body>
         </html>
     );
