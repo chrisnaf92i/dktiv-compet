@@ -1,8 +1,7 @@
 import PWAInstaller from '@/components/PWAInstaller';
-import TabBar from '../../layout/tab-bar';
+// import TabBar from '../../layout/tab-bar';
 import GlobalStyles from '@/global-styles';
 import { Metadata, Viewport } from 'next';
-import { InstallButton } from '@/components/button';
 // import Header from '../../layout/header';
 
 export const metadata: Metadata = {
@@ -30,12 +29,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <GlobalStyles />
-            <body>
+            <body style={{ margin: 0, padding: 0 }}>
                 <PWAInstaller />
                 {children}
-                <TabBar />
-
-                <InstallButton />
+                {/* <TabBar /> */}
             </body>
         </html>
     );
