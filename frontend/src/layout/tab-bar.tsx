@@ -1,30 +1,14 @@
 'use client';
-import { GoalIcon, HomeIcon, UserIcon } from 'lucide-react';
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../src/utils/colors';
+import colors from '../utils/colors';
 import { usePathname, useRouter } from 'next/navigation';
+import { tabs } from '@/utils/tabs';
 
 export default function TabBar() {
     const router = useRouter();
     const pathname = usePathname();
-    const tabs = [
-        {
-            title: 'Acceuil',
-            page: '/',
-            icon: HomeIcon,
-        },
-        {
-            title: 'Mission',
-            page: '/mission',
-            icon: GoalIcon,
-        },
-        {
-            title: 'Profil',
-            page: '/profile',
-            icon: UserIcon,
-        },
-    ];
+
     return (
         <TabBarContainer>
             {tabs.map((tab, i) => {

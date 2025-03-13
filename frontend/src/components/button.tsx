@@ -2,6 +2,7 @@
 'use client';
 
 import colors from '@/utils/colors';
+import { DownloadIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -67,8 +68,15 @@ export function InstallButton() {
     return (
         <>
             {showButton && (
-                <button onClick={handleInstallClick}>Installer la PWA</button>
+                <InstallButtonStyle onClick={handleInstallClick}>
+                    <DownloadIcon size="24" />
+                </InstallButtonStyle>
             )}
         </>
     );
 }
+const InstallButtonStyle = styled.button`
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+`;
