@@ -13,10 +13,7 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = [
-    'http://localhost:3000',
-    'https://dktiv-compet.vercel.app/',
-];
+const allowedOrigins = ['http://localhost:3000', 'https://dktiv.fr'];
 
 app.use(
     cors({
