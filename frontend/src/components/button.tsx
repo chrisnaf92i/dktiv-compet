@@ -20,7 +20,6 @@ import styled from 'styled-components';
 
 export const Button = styled.button<{
     type: 'primary' | 'secondary' | 'terciary';
-    $enabled: boolean;
 }>`
     width: 100%;
     padding: 12px;
@@ -29,17 +28,11 @@ export const Button = styled.button<{
     font-weight: 500px;
     line-height: 24px;
     letter-spacing: auto;
-    background-color: ${({ type, $enabled }) =>
-        type === 'primary'
-            ? $enabled
-                ? colors.primary.blue
-                : colors.opacity.blue10
-            : 'transparent'};
-    color: ${({ type, $enabled: $enabled }) =>
+    background-color: ${({ type }) =>
+        type === 'primary' ? colors.primary.blue : 'transparent'};
+    color: ${({ type }) =>
         type === 'primary' || type === 'secondary'
-            ? $enabled === true
-                ? colors.base.white
-                : colors.terciary.grey400
+            ? colors.base.white
             : colors.primary.blue};
     border: ${({ type }) =>
         type === 'secondary' ? `2px solid ${colors.base.white}` : 'none'};

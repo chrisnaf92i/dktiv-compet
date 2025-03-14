@@ -1,10 +1,8 @@
 // import TabBar from '../../layout/tab-bar';
 import GlobalStyles from '@/global-styles';
-import Header from '@/layout/header';
 import { Metadata, Viewport } from 'next';
 // import Header from '../../layout/header';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+
 export const metadata: Metadata = {
     title: 'DKTIV By Decathlon',
     description: "Une application qui reconnecte l'humain",
@@ -31,9 +29,6 @@ export default function RootLayout({
         <html lang="en">
             <GlobalStyles />
             <body style={{ margin: 0, padding: 0 }}>
-                <ToastContainer />
-
-                <Header />
                 {children}
                 {/* <TabBar /> */}
             </body>

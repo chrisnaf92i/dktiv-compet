@@ -1,28 +1,30 @@
 import { compare, hash } from 'bcryptjs';
 import { Request, Response } from 'express';
 import AuthService from '../service/auth.service';
-import { Role } from '@prisma/client';
 
 class AuthController {
     static async signin(req: Request, res: Response) {
-        const { lastname, firstname, email, phone, password } = req.body;
+        const { lastname, firstname, email, phone, password, role } = req.body;
         try {
             const hashedPassword = await hash(password, 10);
-            const user = await AuthService.createAccount(
-                lastname,
-                firstname,
-                email,
-                phone,
-                hashedPassword,
-                Role.client,
-            );
+            try {
+                const user = await AuthService.createAccount(
+                    lastname,
+                    firstname,
+                    email,
+                    phone,
+                    hashedPassword,
+                    role,
+                );
 
-            res.status(201).json({
-                message: 'Account is successfully created',
-                user,
-            });
-        } catch (error: any) {
-            res.status(500).json({ error });
+                res.status(201).json({
+                    message: 'Account is successfully created',
+                });
+            } catch (error) {
+                res.json('An error occured');
+            }
+        } catch (error) {
+            res.json('An error occured');
         }
     }
     static async login(req: Request, res: Response) {
@@ -88,7 +90,7 @@ class AuthController {
                     });
                 }
             } catch (error) {
-                res.status(500).json({ message: 'An error occured', error });
+                res.json('An error occured');
             }
         } else {
             res.status(500).json({

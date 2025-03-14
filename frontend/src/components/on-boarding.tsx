@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { BodyText, H1 } from './text';
 import colors from '@/utils/colors';
 import { useSwipeable } from 'react-swipeable';
-import OrSeparator from './or-separator';
 type OnBoardingProps = {
     setPhoto: (photo: string) => void;
 };
@@ -27,7 +26,7 @@ export default function OnBoarding({ setPhoto }: OnBoardingProps) {
             setOnBoardingStep('Step 3');
             setPhoto('/images/onboarding/onboarding-3.webp');
         } else {
-            router.push('/auth/signin');
+            router.push('/auth/login');
         }
     };
 
@@ -72,7 +71,6 @@ export default function OnBoarding({ setPhoto }: OnBoardingProps) {
                     </BodyText>
 
                     <Button
-                        $enabled={true}
                         type="primary"
                         style={{ margin: '8px 0' }}
                         onClick={onChangeStep}
@@ -80,16 +78,13 @@ export default function OnBoarding({ setPhoto }: OnBoardingProps) {
                         Commencer
                     </Button>
 
-                    <OrSeparator
-                        lineColor={colors.base.white}
-                        textColor={colors.base.white}
-                    />
+                    <SeparatorContainer>
+                        <SeparatorLine />
+                        <SeparatorWord $type="Medium16">Ou</SeparatorWord>
+                        <SeparatorLine />
+                    </SeparatorContainer>
 
-                    <Button
-                        $enabled={true}
-                        type="secondary"
-                        style={{ margin: '8px 0' }}
-                    >
+                    <Button type="secondary" style={{ margin: '8px 0' }}>
                         Devenir prestataire
                     </Button>
                 </OnBoardingContainer>
@@ -152,7 +147,6 @@ export default function OnBoarding({ setPhoto }: OnBoardingProps) {
                             <OnBoardingSteps $active />
                         </OnBoardingStepsContainer>
                         <Button
-                            $enabled={true}
                             style={{ width: '50%' }}
                             type="primary"
                             onClick={onChangeStep}
@@ -165,6 +159,21 @@ export default function OnBoarding({ setPhoto }: OnBoardingProps) {
         }[onBoardingStep] || null
     );
 }
+
+const SeparatorContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+`;
+const SeparatorLine = styled.div`
+    flex: 1;
+    border: 1px solid ${colors.base.white};
+`;
+
+const SeparatorWord = styled(BodyText)`
+    color: ${colors.base.white};
+    margin: 0;
+`;
 
 const OnBoardingContainer = styled.section`
     display: flex;

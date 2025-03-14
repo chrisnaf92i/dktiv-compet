@@ -9,10 +9,5 @@ const GlobalStyles = createGlobalStyle`
     h1, h2, h3, h4 {
         font-family: 'Sora', sans-serif;
     }
-
-    main {
-        max-width: 100vw;
-    }
 `;
-
 export default GlobalStyles;

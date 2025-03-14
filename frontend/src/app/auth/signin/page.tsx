@@ -4,6 +4,7 @@ import { InputText, InputTextWithIcon, Label } from '@/components/input';
 // import OrSeparator from '@/components/or-separator';
 import { BodyText, H1 } from '@/components/text';
 import colors from '@/utils/colors';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 // import colors from '@/utils/colors';
 import React, { useState } from 'react';
@@ -136,11 +137,8 @@ export default function Page() {
                 lineColor={colors.terciary.grey300}
                 textColor={colors.base.black}
             /> */}
+
+            <Link href="/auth/login"> Tu as déjà un compte ? Connecte-toi</Link>
         </main>
     );
 }
-
-const Form = styled.form`
-    width: 100%;
-    box-sizing: border-box;
-`;
