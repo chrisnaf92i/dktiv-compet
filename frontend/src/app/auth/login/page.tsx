@@ -4,6 +4,7 @@ import { InputText, InputTextWithIcon, Label } from '@/components/input';
 // import OrSeparator from '@/components/or-separator';
 import { BodyText, H1 } from '@/components/text';
 import colors from '@/utils/colors';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 // import colors from '@/utils/colors';
 import React, { useState } from 'react';
@@ -16,7 +17,7 @@ export default function Page() {
     const router = useRouter();
     return (
         <main style={{ margin: '16px' }}>
-            <H1>Créer ton compte</H1>
+            <H1>Connecte toi</H1>
 
             <Form
                 onSubmit={async (e) => {
@@ -36,7 +37,6 @@ export default function Page() {
                         const data = await response.json();
                         console.log(data);
                         toast.success("L'utilisateur a été créé avec succès");
-                        localStorage.setItem('isConnected', 'true');
                         router.push('/');
                     } catch {
                         toast.error("Une erreur s'est produite");
@@ -79,6 +79,8 @@ export default function Page() {
                     inscription
                 </Button>
             </Form>
+
+            <Link href="/auth/signin"> Pas encore de compte ? Inscris toi</Link>
             {/* <OrSeparator
                 margin="40px 0"
                 lineColor={colors.terciary.grey300}
