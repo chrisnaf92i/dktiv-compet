@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function page() {
-    return <main>page</main>;
+    return (
+        <main>
+            <h1></h1>
+        </main>
+    );
 }

@@ -39,6 +39,7 @@ const Main = styled.main<{ $background: string }>`
 `;
 
 const BackgroundPattern = styled.img`
+    max-width: 100%;
     position: absolute;
     top: 8px;
     right: 0px;
