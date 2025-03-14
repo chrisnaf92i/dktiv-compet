@@ -11,18 +11,18 @@ export default function Header() {
     const navigateBack = () => {
         router.back();
     };
-    return (
-        pathname !== '' && (
-            <HeaderContainer>
-                <div>
-                    {!tabs.some((tab) => pathname === tab.page) && (
-                        <BackButton onClick={navigateBack}>
-                            <ArrowLeft />
-                        </BackButton>
-                    )}
-                </div>
-            </HeaderContainer>
-        )
+    return pathname !== '/' ? (
+        <HeaderContainer>
+            <div>
+                {!tabs.some((tab) => pathname === tab.page) && (
+                    <BackButton onClick={navigateBack}>
+                        <ArrowLeft />
+                    </BackButton>
+                )}
+            </div>
+        </HeaderContainer>
+    ) : (
+        <></>
     );
 }
 

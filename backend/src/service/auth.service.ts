@@ -42,6 +42,7 @@ export default class AuthService {
                 return newUser;
             }
         } catch (error) {
+            console.log(error);
             throw new Error('An error occurred');
         }
     }

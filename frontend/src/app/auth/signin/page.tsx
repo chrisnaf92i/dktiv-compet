@@ -4,20 +4,22 @@ import { InputText, InputTextWithIcon, Label } from '@/components/input';
 // import OrSeparator from '@/components/or-separator';
 import { BodyText, H1 } from '@/components/text';
 import colors from '@/utils/colors';
+import { useRouter } from 'next/navigation';
 // import colors from '@/utils/colors';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 export default function Page() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstname, setFirstName] = useState('');
+    const [lastname, setLastName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const router = useRouter();
     return (
-        <main>
-            <H1 style={{ margin: '0 16px' }}>Créer ton compte</H1>
+        <main style={{ margin: '16px' }}>
+            <H1>Créer ton compte</H1>
 
             <Form
                 onSubmit={async (e) => {
@@ -29,20 +31,20 @@ export default function Page() {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
-                                    firstName,
-                                    lastName,
+                                    firstname,
+                                    lastname,
                                     phone,
                                     email,
                                     password,
                                 }),
                             },
                         );
-
                         const data = await response.json();
                         console.log(data);
-                        alert('Account is successfully created');
-                    } catch (error) {
-                        console.error(error);
+                        toast.success("L'utilisateur a été créé avec succès");
+                        router.push('/auth/login');
+                    } catch {
+                        toast.error("Une erreur s'est produite");
                     }
                 }}
             >
@@ -108,7 +110,24 @@ export default function Page() {
                     </BodyText>
                 </Label>
 
-                <Button $enabled={true} type="primary" onClick={() => {}}>
+                <Button
+                    $enabled={
+                        email != '' &&
+                        password != '' &&
+                        phone != '' &&
+                        firstname != '' &&
+                        lastname != ''
+                    }
+                    disabled={
+                        email == '' &&
+                        password == '' &&
+                        phone == '' &&
+                        firstname == '' &&
+                        lastname == ''
+                    }
+                    type="primary"
+                    onClick={() => {}}
+                >
                     inscription
                 </Button>
             </Form>
@@ -124,5 +143,4 @@ export default function Page() {
 const Form = styled.form`
     width: 100%;
     box-sizing: border-box;
-    padding: 0 16px;
 `;

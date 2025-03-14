@@ -9,8 +9,7 @@ export const InputText = styled.input`
     gap: 4px;
     font-size: 16px;
     padding: 12px 16px;
-    font-family: 'dm-sans';
-    width: 100%;
+    font-family: 'dm-sans', sans-serif;
     align-self: stretch;
     border: 1px solid ${colors.terciary.grey400};
     border-radius: 8px;
@@ -18,11 +17,13 @@ export const InputText = styled.input`
 `;
 
 export const Label = styled.label`
-    width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: column;
     color: ${colors.base.black};
-    font-family: 'dm-sans';
+    font-family: 'dm-sans', sans-serif;
+    width: 100%;
     font-size: 16px;
+    box-sizing: border-box;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
