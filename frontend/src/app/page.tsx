@@ -3,7 +3,6 @@ import OnBoarding from '@/components/on-boarding';
 import colors from '@/utils/colors';
 import { useState } from 'react';
 import styled from 'styled-components';
-// import Cookies from 'js-cookie';
 
 export default function Home() {
     const [background, setBackground] = useState<string>('');
@@ -17,9 +16,7 @@ export default function Home() {
         setBackground(photo);
     };
 
-    return localStorage.getItem('isConnected') == 'true' ? (
-        <main> Page d&apos;acceuil</main>
-    ) : (
+    return (
         <Main $background={background}>
             {background == '' && (
                 <BackgroundPattern src="/images/abstract/logo_background.svg" />
@@ -27,6 +24,9 @@ export default function Home() {
             <OnBoarding setPhoto={onSetPhoto} />
         </Main>
     );
+    // ) : (
+    //     <main> Page d&apos;acceuil</main>
+    // );
 }
 
 const Main = styled.main<{ $background: string }>`
@@ -39,7 +39,6 @@ const Main = styled.main<{ $background: string }>`
 `;
 
 const BackgroundPattern = styled.img`
-    max-width: 100%;
     position: absolute;
     top: 8px;
     right: 0px;

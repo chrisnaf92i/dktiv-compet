@@ -10,39 +10,22 @@ export default class AuthService {
         phone: string,
         hashedPassword: string,
         role: string,
-    ) {
+    ): Promise<User> {
         const settedRole = role as Role;
         try {
-            const checkUser = await prisma.user.findFirst({
-                where: {
-                    OR: [{ email }, { phone }],
+            const newUser = await prisma.user.create({
+                data: {
+                    lastname,
+                    firstname,
+                    email,
+                    phone,
+                    password: hashedPassword,
+                    role: settedRole,
                 },
             });
 
-            if (checkUser) {
-                throw new Error('User already exists with this email or phone');
-            } else {
-                const newUser = await prisma.user.create({
-                    data: {
-                        lastname,
-                        firstname,
-                        email,
-                        phone,
-                        password: hashedPassword,
-                        role: settedRole,
-                    },
-                    select: {
-                        lastname: true,
-                        firstname: true,
-                        email: true,
-                        phone: true,
-                    },
-                });
-
-                return newUser;
-            }
-        } catch (error) {
-            console.log(error);
+            return newUser;
+        } catch {
             throw new Error('An error occurred');
         }
     }
