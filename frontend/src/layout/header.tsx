@@ -1,5 +1,4 @@
 'use client';
-import { InstallButton } from '@/components/button';
 import { tabs } from '@/utils/tabs';
 import { ArrowLeft } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -12,7 +11,7 @@ export default function Header() {
     const navigateBack = () => {
         router.back();
     };
-    return (
+    return pathname !== '/' ? (
         <HeaderContainer>
             <div>
                 {!tabs.some((tab) => pathname === tab.page) && (
@@ -20,10 +19,10 @@ export default function Header() {
                         <ArrowLeft />
                     </BackButton>
                 )}
-                <Logo src="/logo.svg" alt="DKVIT by decathlon" />
             </div>
-            <InstallButton />
         </HeaderContainer>
+    ) : (
+        <></>
     );
 }
 
@@ -37,10 +36,6 @@ const HeaderContainer = styled.header`
 
     display: flex;
     justify-content: space-between;
-`;
-
-const Logo = styled.img`
-    width: 30%;
 `;
 
 const BackButton = styled.button`
