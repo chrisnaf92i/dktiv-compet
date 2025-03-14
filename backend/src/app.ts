@@ -4,6 +4,7 @@ import CompanyRouter from './router/company.routes';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import MissionRouter from './router/mission.routes';
 const app = express();
 
 dotenv.config();
@@ -30,5 +31,6 @@ app.use(
 
 app.use('/api/auth', AuthRouter);
 app.use('/api/company', CompanyRouter);
+app.use('/api/mission', MissionRouter);
 
 app.listen(PORT, () => console.log(`Lancement du serveur sur le port ${PORT}`));
