@@ -1,7 +1,7 @@
 'use client';
 import OnBoarding from '@/components/on-boarding';
 import colors from '@/utils/colors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export default function Home() {
@@ -16,7 +16,16 @@ export default function Home() {
         setBackground(photo);
     };
 
-    return (
+    let isConnected;
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            isConnected = localStorage.getItem('isConnected');
+        }
+    }, []);
+
+    return isConnected == 'true' ? (
+        <main> Page d&apos;acceuil</main>
+    ) : (
         <Main $background={background}>
             {background == '' && (
                 <BackgroundPattern src="/images/abstract/logo_background.svg" />
